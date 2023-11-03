@@ -81,7 +81,7 @@ public class ImagePicker extends CordovaPlugin {
                 cordova.getActivity().runOnUiThread(() -> {
                     showLoader();
                 });
-                
+
                 Uri uri;
                 String path;
                 if (resultCode == Activity.RESULT_OK && data != null) {
@@ -122,7 +122,7 @@ public class ImagePicker extends CordovaPlugin {
                 } else {
                     callbackContext.error("No images selected");
                 }
-                
+
                 cordova.getActivity().runOnUiThread(() -> {
                     hideLoader();
                 });
@@ -187,7 +187,7 @@ public class ImagePicker extends CordovaPlugin {
     private boolean hasReadPermission() {
         return Build.VERSION.SDK_INT < 23 ||
           PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this.cordova.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) ||
-                PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this.cordova.getActivity(), Manifest.permission.READ_MEDIA_IMAGES);
+                PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this.cordova.getActivity(), "android.permission.READ_MEDIA_IMAGES");
     }
 
     @SuppressLint("InlinedApi")
@@ -196,7 +196,7 @@ public class ImagePicker extends CordovaPlugin {
             if (Build.VERSION.SDK_INT < 33) {
                 cordova.requestPermissions(this, PERMISSION_REQUEST_CODE, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE});
             } else {
-                cordova.requestPermissions(this, PERMISSION_REQUEST_CODE, new String[]{Manifest.permission.READ_MEDIA_IMAGES});
+                cordova.requestPermissions(this, PERMISSION_REQUEST_CODE, new String[]{"android.permission.READ_MEDIA_IMAGES"});
             }
             return;
         }
